@@ -1,0 +1,18 @@
+{
+  "name": "biometrico",
+  "version": "1.0.0",
+  "description": "Identificación biométrica para los servicios de la plataforma",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "biometrico",
+    "apueston"
+  ],
+  "author": "K-Devs <kinitroconsultoria@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^10.13.1"
+  }
+}
