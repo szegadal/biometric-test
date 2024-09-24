@@ -1,0 +1,908 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "amplify-biometrico-sebas-sandbox-6564646211": {
+        "id": "amplify-biometrico-sebas-sandbox-6564646211",
+        "path": "amplify-biometrico-sebas-sandbox-6564646211",
+        "children": {
+          "deploymentType": {
+            "id": "deploymentType",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/deploymentType",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "region": {
+            "id": "region",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/region",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "auth": {
+            "id": "auth",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/auth",
+            "children": {
+              "amplifyAuth": {
+                "id": "amplifyAuth",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth",
+                "children": {
+                  "UserPool": {
+                    "id": "UserPool",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/UserPool",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/UserPool/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Cognito::UserPool",
+                          "aws:cdk:cloudformation:props": {
+                            "accountRecoverySetting": {
+                              "recoveryMechanisms": [
+                                {
+                                  "name": "verified_email",
+                                  "priority": 1
+                                }
+                              ]
+                            },
+                            "adminCreateUserConfig": {
+                              "allowAdminCreateUserOnly": false
+                            },
+                            "autoVerifiedAttributes": [
+                              "email"
+                            ],
+                            "emailVerificationMessage": "The verification code to your new account is {####}",
+                            "emailVerificationSubject": "Verify your new account",
+                            "policies": {
+                              "passwordPolicy": {
+                                "minimumLength": 8,
+                                "requireLowercase": true,
+                                "requireUppercase": true,
+                                "requireNumbers": true,
+                                "requireSymbols": true
+                              }
+                            },
+                            "schema": [
+                              {
+                                "name": "email",
+                                "mutable": true,
+                                "required": true
+                              }
+                            ],
+                            "smsVerificationMessage": "The verification code to your new account is {####}",
+                            "userPoolTags": {
+                              "amplify:deployment-type": "sandbox",
+                              "amplify:friendly-name": "amplifyAuth",
+                              "created-by": "amplify"
+                            },
+                            "userAttributeUpdateSettings": {
+                              "attributesRequireVerificationBeforeUpdate": [
+                                "email"
+                              ]
+                            },
+                            "usernameAttributes": [
+                              "email"
+                            ],
+                            "usernameConfiguration": {
+                              "caseSensitive": false
+                            },
+                            "verificationMessageTemplate": {
+                              "defaultEmailOption": "CONFIRM_WITH_CODE",
+                              "emailMessage": "The verification code to your new account is {####}",
+                              "emailSubject": "Verify your new account",
+                              "smsMessage": "The verification code to your new account is {####}"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
+                          "version": "2.159.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.UserPool",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "UserPoolAppClient": {
+                    "id": "UserPoolAppClient",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/UserPoolAppClient",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/UserPoolAppClient/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolClient",
+                          "aws:cdk:cloudformation:props": {
+                            "allowedOAuthFlows": [
+                              "code"
+                            ],
+                            "allowedOAuthFlowsUserPoolClient": true,
+                            "allowedOAuthScopes": [
+                              "profile",
+                              "phone",
+                              "email",
+                              "openid",
+                              "aws.cognito.signin.user.admin"
+                            ],
+                            "callbackUrLs": [
+                              "https://example.com"
+                            ],
+                            "explicitAuthFlows": [
+                              "ALLOW_CUSTOM_AUTH",
+                              "ALLOW_USER_SRP_AUTH",
+                              "ALLOW_REFRESH_TOKEN_AUTH"
+                            ],
+                            "preventUserExistenceErrors": "ENABLED",
+                            "supportedIdentityProviders": [
+                              "COGNITO"
+                            ],
+                            "userPoolId": {
+                              "Ref": "amplifyAuthUserPool4BA7F805"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
+                          "version": "2.159.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "IdentityPool": {
+                    "id": "IdentityPool",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/IdentityPool",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPool",
+                      "aws:cdk:cloudformation:props": {
+                        "allowUnauthenticatedIdentities": true,
+                        "identityPoolTags": [
+                          {
+                            "key": "amplify:deployment-type",
+                            "value": "sandbox"
+                          },
+                          {
+                            "key": "amplify:friendly-name",
+                            "value": "amplifyAuth"
+                          },
+                          {
+                            "key": "created-by",
+                            "value": "amplify"
+                          }
+                        ],
+                        "cognitoIdentityProviders": [
+                          {
+                            "clientId": {
+                              "Ref": "amplifyAuthUserPoolAppClient2626C6F8"
+                            },
+                            "providerName": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "cognito-idp.",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ".amazonaws.com/",
+                                  {
+                                    "Ref": "amplifyAuthUserPool4BA7F805"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        ],
+                        "supportedLoginProviders": {}
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPool",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "authenticatedUserRole": {
+                    "id": "authenticatedUserRole",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/authenticatedUserRole",
+                    "children": {
+                      "ImportauthenticatedUserRole": {
+                        "id": "ImportauthenticatedUserRole",
+                        "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/authenticatedUserRole/ImportauthenticatedUserRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.159.1"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/authenticatedUserRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRoleWithWebIdentity",
+                                  "Condition": {
+                                    "StringEquals": {
+                                      "cognito-identity.amazonaws.com:aud": {
+                                        "Ref": "amplifyAuthIdentityPool3FDE84CC"
+                                      }
+                                    },
+                                    "ForAnyValue:StringLike": {
+                                      "cognito-identity.amazonaws.com:amr": "authenticated"
+                                    }
+                                  },
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Federated": "cognito-identity.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "tags": [
+                              {
+                                "key": "amplify:deployment-type",
+                                "value": "sandbox"
+                              },
+                              {
+                                "key": "amplify:friendly-name",
+                                "value": "amplifyAuth"
+                              },
+                              {
+                                "key": "created-by",
+                                "value": "amplify"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.159.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "unauthenticatedUserRole": {
+                    "id": "unauthenticatedUserRole",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/unauthenticatedUserRole",
+                    "children": {
+                      "ImportunauthenticatedUserRole": {
+                        "id": "ImportunauthenticatedUserRole",
+                        "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/unauthenticatedUserRole/ImportunauthenticatedUserRole",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.159.1"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/unauthenticatedUserRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRoleWithWebIdentity",
+                                  "Condition": {
+                                    "StringEquals": {
+                                      "cognito-identity.amazonaws.com:aud": {
+                                        "Ref": "amplifyAuthIdentityPool3FDE84CC"
+                                      }
+                                    },
+                                    "ForAnyValue:StringLike": {
+                                      "cognito-identity.amazonaws.com:amr": "unauthenticated"
+                                    }
+                                  },
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Federated": "cognito-identity.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "tags": [
+                              {
+                                "key": "amplify:deployment-type",
+                                "value": "sandbox"
+                              },
+                              {
+                                "key": "amplify:friendly-name",
+                                "value": "amplifyAuth"
+                              },
+                              {
+                                "key": "created-by",
+                                "value": "amplify"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.159.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "IdentityPoolRoleAttachment": {
+                    "id": "IdentityPoolRoleAttachment",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/IdentityPoolRoleAttachment",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPoolRoleAttachment",
+                      "aws:cdk:cloudformation:props": {
+                        "identityPoolId": {
+                          "Ref": "amplifyAuthIdentityPool3FDE84CC"
+                        },
+                        "roleMappings": {
+                          "UserPoolWebClientRoleMapping": {
+                            "type": "Token",
+                            "ambiguousRoleResolution": "AuthenticatedRole",
+                            "identityProvider": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "cognito-idp.",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ".amazonaws.com/",
+                                  {
+                                    "Ref": "amplifyAuthUserPool4BA7F805"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "amplifyAuthUserPoolAppClient2626C6F8"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "roles": {
+                          "unauthenticated": {
+                            "Fn::GetAtt": [
+                              "amplifyAuthunauthenticatedUserRole2B524D9E",
+                              "Arn"
+                            ]
+                          },
+                          "authenticated": {
+                            "Fn::GetAtt": [
+                              "amplifyAuthauthenticatedUserRoleD8DA3689",
+                              "Arn"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPoolRoleAttachment",
+                      "version": "2.159.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.3.0"
+                }
+              },
+              "CDKMetadata": {
+                "id": "CDKMetadata",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/CDKMetadata",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/CDKMetadata/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "Condition": {
+                    "id": "Condition",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/CDKMetadata/Condition",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnCondition",
+                      "version": "2.159.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.3.0"
+                }
+              },
+              "amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolA5C2A822Ref": {
+                "id": "amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolA5C2A822Ref",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolA5C2A822Ref",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.159.1"
+                }
+              },
+              "amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolAppClient4069D8F9Ref": {
+                "id": "amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolAppClient4069D8F9Ref",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolAppClient4069D8F9Ref",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.159.1"
+                }
+              },
+              "amplifybiometricosebassandbox6564646211authamplifyAuthIdentityPoolC4A9B53FRef": {
+                "id": "amplifybiometricosebassandbox6564646211authamplifyAuthIdentityPoolC4A9B53FRef",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthIdentityPoolC4A9B53FRef",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.159.1"
+                }
+              },
+              "amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef": {
+                "id": "amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.159.1"
+                }
+              },
+              "amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef": {
+                "id": "amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.159.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.NestedStack",
+              "version": "2.159.1"
+            }
+          },
+          "auth.NestedStack": {
+            "id": "auth.NestedStack",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/auth.NestedStack",
+            "children": {
+              "auth.NestedStackResource": {
+                "id": "auth.NestedStackResource",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/auth.NestedStack/auth.NestedStackResource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFormation::Stack",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "amplify:deployment-type",
+                        "value": "sandbox"
+                      },
+                      {
+                        "key": "created-by",
+                        "value": "amplify"
+                      }
+                    ],
+                    "templateUrl": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://s3.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/",
+                          {
+                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                          },
+                          "/b2542138e69671050f2804fbe98b37061b2f2259d0ffecc57efa98199e7ede4f.json"
+                        ]
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnStack",
+                  "version": "2.159.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "userPoolId": {
+            "id": "userPoolId",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/userPoolId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "webClientId": {
+            "id": "webClientId",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/webClientId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "identityPoolId": {
+            "id": "identityPoolId",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/identityPoolId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "authRegion": {
+            "id": "authRegion",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/authRegion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "allowUnauthenticatedIdentities": {
+            "id": "allowUnauthenticatedIdentities",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/allowUnauthenticatedIdentities",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "signupAttributes": {
+            "id": "signupAttributes",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/signupAttributes",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "usernameAttributes": {
+            "id": "usernameAttributes",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/usernameAttributes",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "verificationMechanisms": {
+            "id": "verificationMechanisms",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/verificationMechanisms",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "passwordPolicyMinLength": {
+            "id": "passwordPolicyMinLength",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/passwordPolicyMinLength",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "passwordPolicyRequirements": {
+            "id": "passwordPolicyRequirements",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/passwordPolicyRequirements",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "mfaConfiguration": {
+            "id": "mfaConfiguration",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/mfaConfiguration",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "mfaTypes": {
+            "id": "mfaTypes",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/mfaTypes",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "socialProviders": {
+            "id": "socialProviders",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/socialProviders",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "oauthCognitoDomain": {
+            "id": "oauthCognitoDomain",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/oauthCognitoDomain",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "oauthScope": {
+            "id": "oauthScope",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/oauthScope",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "oauthRedirectSignIn": {
+            "id": "oauthRedirectSignIn",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/oauthRedirectSignIn",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "oauthRedirectSignOut": {
+            "id": "oauthRedirectSignOut",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/oauthRedirectSignOut",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "oauthResponseType": {
+            "id": "oauthResponseType",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/oauthResponseType",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "oauthClientId": {
+            "id": "oauthClientId",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/oauthClientId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.159.1"
+            }
+          },
+          "liveness-stack": {
+            "id": "liveness-stack",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack",
+            "children": {
+              "LivenessPolicy": {
+                "id": "LivenessPolicy",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/LivenessPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/LivenessPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "rekognition:StartFaceLivenessSession",
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "LivenessPolicyC1960BB1",
+                        "roles": [
+                          {
+                            "Ref": "referencetoamplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputsamplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef"
+                          },
+                          {
+                            "Ref": "referencetoamplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputsamplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.159.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.159.1"
+                }
+              },
+              "CDKMetadata": {
+                "id": "CDKMetadata",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/CDKMetadata",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/CDKMetadata/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.159.1"
+                    }
+                  },
+                  "Condition": {
+                    "id": "Condition",
+                    "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/CDKMetadata/Condition",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnCondition",
+                      "version": "2.159.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.3.0"
+                }
+              },
+              "reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef": {
+                "id": "reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnParameter",
+                  "version": "2.159.1"
+                }
+              },
+              "reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef": {
+                "id": "reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnParameter",
+                  "version": "2.159.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.NestedStack",
+              "version": "2.159.1"
+            }
+          },
+          "liveness-stack.NestedStack": {
+            "id": "liveness-stack.NestedStack",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack.NestedStack",
+            "children": {
+              "liveness-stack.NestedStackResource": {
+                "id": "liveness-stack.NestedStackResource",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/liveness-stack.NestedStack/liveness-stack.NestedStackResource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFormation::Stack",
+                  "aws:cdk:cloudformation:props": {
+                    "parameters": {
+                      "referencetoamplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputsamplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef": {
+                        "Fn::GetAtt": [
+                          "auth179371D7",
+                          "Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef"
+                        ]
+                      },
+                      "referencetoamplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputsamplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef": {
+                        "Fn::GetAtt": [
+                          "auth179371D7",
+                          "Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef"
+                        ]
+                      }
+                    },
+                    "tags": [
+                      {
+                        "key": "amplify:deployment-type",
+                        "value": "sandbox"
+                      },
+                      {
+                        "key": "created-by",
+                        "value": "amplify"
+                      }
+                    ],
+                    "templateUrl": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://s3.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/",
+                          {
+                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                          },
+                          "/4ab8c24e23af5c18253194060e49c48097b3cf8b5cfc23e4c684129ce9633273.json"
+                        ]
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnStack",
+                  "version": "2.159.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.159.1"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "amplify-biometrico-sebas-sandbox-6564646211/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.159.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.159.1"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "amplify-biometrico-sebas-sandbox-6564646211/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.159.1"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.159.1"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.3.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.159.1"
+    }
+  }
+}

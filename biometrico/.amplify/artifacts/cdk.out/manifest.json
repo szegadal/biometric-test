@@ -1,0 +1,336 @@
+{
+  "version": "36.3.0",
+  "artifacts": {
+    "amplify-biometrico-sebas-sandbox-6564646211.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "amplify-biometrico-sebas-sandbox-6564646211.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "amplify-biometrico-sebas-sandbox-6564646211": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "amplify-biometrico-sebas-sandbox-6564646211.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "amplify:deployment-type": "sandbox",
+          "created-by": "amplify"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f5748c42bfbca2d74881752ac580e8718a3fd9ee097bc95c002e8f991025febe.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "amplify-biometrico-sebas-sandbox-6564646211.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "amplify-biometrico-sebas-sandbox-6564646211.assets"
+      ],
+      "metadata": {
+        "/amplify-biometrico-sebas-sandbox-6564646211": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "amplify:deployment-type",
+                "Value": "sandbox"
+              },
+              {
+                "Key": "created-by",
+                "Value": "amplify"
+              }
+            ]
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/deploymentType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "deploymentType"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/region": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "region"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/UserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthUserPool4BA7F805"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/UserPoolAppClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthUserPoolAppClient2626C6F8"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/IdentityPool": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthIdentityPool3FDE84CC"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/authenticatedUserRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthauthenticatedUserRoleD8DA3689"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/unauthenticatedUserRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthunauthenticatedUserRole2B524D9E"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifyAuth/IdentityPoolRoleAttachment": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifyAuthIdentityPoolRoleAttachment045F17C8"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolA5C2A822Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolA5C2A822Ref"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolAppClient4069D8F9Ref": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifybiometricosebassandbox6564646211authamplifyAuthUserPoolAppClient4069D8F9Ref"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthIdentityPoolC4A9B53FRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifybiometricosebassandbox6564646211authamplifyAuthIdentityPoolC4A9B53FRef"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth/amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/auth.NestedStack/auth.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "auth179371D7"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/userPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "userPoolId"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/webClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "webClientId"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/identityPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "identityPoolId"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/authRegion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "authRegion"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/allowUnauthenticatedIdentities": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "allowUnauthenticatedIdentities"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/signupAttributes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "signupAttributes"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/usernameAttributes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "usernameAttributes"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/verificationMechanisms": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "verificationMechanisms"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/passwordPolicyMinLength": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "passwordPolicyMinLength"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/passwordPolicyRequirements": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "passwordPolicyRequirements"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/mfaConfiguration": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "mfaConfiguration"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/mfaTypes": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "mfaTypes"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/socialProviders": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "socialProviders"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/oauthCognitoDomain": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthCognitoDomain"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/oauthScope": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthScope"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/oauthRedirectSignIn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthRedirectSignIn"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/oauthRedirectSignOut": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthRedirectSignOut"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/oauthResponseType": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthResponseType"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/oauthClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "oauthClientId"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/LivenessPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LivenessPolicyC1960BB1"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoamplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputsamplifybiometricosebassandbox6564646211authamplifyAuthunauthenticatedUserRole75DEC0EBRef"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/liveness-stack/reference-to-amplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputs.amplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoamplifybiometricosebassandbox6564646211authNestedStackauthNestedStackResourceC5681AF3Outputsamplifybiometricosebassandbox6564646211authamplifyAuthauthenticatedUserRoleE46F139DRef"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/liveness-stack.NestedStack/liveness-stack.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "livenessstack807EAEF2"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/amplify-biometrico-sebas-sandbox-6564646211/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "amplify-biometrico-sebas-sandbox-6564646211"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

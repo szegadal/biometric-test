@@ -1,0 +1,45 @@
+{
+  "version": "36.3.0",
+  "files": {
+    "b2542138e69671050f2804fbe98b37061b2f2259d0ffecc57efa98199e7ede4f": {
+      "source": {
+        "path": "amplifybiometricosebassandbox6564646211auth60098196.nested.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "b2542138e69671050f2804fbe98b37061b2f2259d0ffecc57efa98199e7ede4f.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "4ab8c24e23af5c18253194060e49c48097b3cf8b5cfc23e4c684129ce9633273": {
+      "source": {
+        "path": "amplifybiometricosebassandbox6564646211livenessstackEEE69EFF.nested.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "4ab8c24e23af5c18253194060e49c48097b3cf8b5cfc23e4c684129ce9633273.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "f5748c42bfbca2d74881752ac580e8718a3fd9ee097bc95c002e8f991025febe": {
+      "source": {
+        "path": "amplify-biometrico-sebas-sandbox-6564646211.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "f5748c42bfbca2d74881752ac580e8718a3fd9ee097bc95c002e8f991025febe.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

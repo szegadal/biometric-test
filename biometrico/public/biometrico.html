@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Metabet - Apuestón</title>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/riu.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="section">
+      <div class="wrapper">
+        <main class="main">
+          <div class="content-header">
+            <h3>¡Bienvenido!</h3>
+            <p>Por favor, seleccione el tipo de documento que desea verificar.</p>
+            <select id="doctype_selector" class="button-combobox" onchange="init_eKYCVideo()">
+              <option value="0">Elige un tipo de documento</option>
+              <option value="Photo_ID">Carnet de Identidad</option>
+              <option value="Photo_ID">Carnet de Extranjería</option>
+              <option value="PASSPORT">Pasaporte</option>
+            </select>
+          </div>
+          <div class="form-container">
+            <div class="buttons-container">
+              <input
+                type="button"
+                class="button button-primary"
+                value="Presione cuando quiera tomarse la selfie"
+                disabled="true"
+                id="ready1"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Presione para repetir la selfie"
+                id="repeat1"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Acepto los términos y condiciones"
+                id="accept"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Capturar el lado frontal del documento"
+                id="next1"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Presione para capturar el lado frontal del documento"
+                id="ready2"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Repetir la captura del lado frontal del documento"
+                id="repeat2"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Capturar el lado reverso del documento"
+                id="next2"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Presione para capturar el lado reverso del documento"
+                id="ready3"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Repetir la captura del lado reverso del documento"
+                id="repeat3"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Presione para validar la sesión"
+                id="next3"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="¡Imagen borrosa detectada! Presione para continuar"
+                id="next4"
+              />
+              <input
+                type="button"
+                class="button button-primary"
+                style="display: none"
+                value="Captura manual"
+                id="manualPicture"
+              />
+              <div id="loader" class="loader-hidden">
+                <img src="../../img/loader_360.gif" alt="Imagen de carga" />
+              </div>
+            </div>
+            <div class="video-container">
+              <video id="videoOutput" autoplay playsinline muted></video>
+              <div class="canvas-container">
+                <div class="picture-container">
+                  <span>Selfie</span>
+                  <canvas class="picture-empty" id="photo1"></canvas>
+                </div>
+                <div class="picture-container">
+                  <span>Frente</span>
+                  <canvas class="picture-empty" id="photo2"></canvas>
+                </div>
+                <div class="picture-container">
+                  <span>Reverso</span>
+                  <canvas class="picture-empty" id="photo3"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="consoleDebug"></div>
+        </main>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="./js/vendors/adapter.js"></script>
+    <script type="text/javascript" src="./js/vendors/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/providerSDK.js"></script>
+    <script type="text/javascript" src="./js/janus.js"></script>
+    <script type="text/javascript" src="./js/mediaserver.js"></script>
+    <script type="text/javascript" src="./js/riucore.js"></script>
+    <script type="text/javascript" src="./js/riu.js"></script>
+    <script type="text/javascript">
+      const urlParams = new URLSearchParams(window.location.search)
+      const userId = urlParams.get('userId')
+      console.log(userId)
+      console.log('customer: ', window.customer)
+      document.getElementById('doctype_selector').value = 0
+      $('#next1').hide() // Captura el lado frontal del documento
+      $('#repeat1').hide() // Presione para repetir la selfie
+      // $('#ready1').hide() // Presione cuando quiera tomarse la selfie
+      $('#next2').hide() // Captura el lado reverso del documento
+      $('#repeat2').hide() // Repetir la captura del lado frontal del documento
+      $('#ready2').hide() // Presione para capturar el lado frontal del documento
+      $('#repeat3').hide() // Repetir la captura del lado reverso del documento
+      $('#ready3').hide() // Presione para capturar el lado reverso del documento
+      $('#next3').hide() // Presione para validar la sesión
+      $('#next4').hide()
+      $('#manualPicture').hide()
+      $('#accept').hide()
+
+      document.getElementById('next3').addEventListener('click', () => {
+        window.parent.postMessage({ type: 'disbledButton', message: true }, '*')
+        // docuemnt.getElementById('loader').style.display = 'block'
+        document.querySelector('#loader').classList.remove('loader-hidden')
+        document.querySelector('#loader').classList.add('loader')
+      })
+      function init_eKYCVideo() {
+        /*
+                $("#reset").off("click");
+                $("#reset").click(function(){
+                            customer.reset();
+                });
+                */
+
+        customer.init({
+          //GENERAL DATA
+          customer_url: 'https://system.cpelsac.com/api/v1/lleida/session',
+          // customer_url: 'https://nf3mrd20-3001.brs.devtunnels.ms/api/v1/lleida/session',
+          // redirect_url: "https://<<customer_url>>/custom_form.html?param1=true",
+          template: { userId, provider: 'lleida' },
+          ocrSDK_url: 'js/providerSDK.js',
+          model_path: 'js/models',
+          // debug: true,
+          video_html_id: 'videoOutput', //mandatory, video tag id
+          face_image_html_id: 'photo1', //mandatory, html selfie canvas id
+          front_document_html_id: 'photo2', //mandatory, html ID front canvas id
+          back_document_html_id: 'photo3', //mandatory, html ID back canvas id
+          mute_audio: true, //optional, options: true/false. Default value false;
+          force_horitzontal: true,
+          language: 'es', // optional, language options: en(english), es(spanish), ca(catalan), pt(portuguese). Default: en
+          recording_timeout: 600000, //recording timeout to prevent large recordings
+          image_compression: 1, //1 JPG format without compression
+
+          document_type_document: document.getElementById('doctype_selector').value,
+
+          document_max_attemps: 3, //max attemps of OCR software try to do a good picture
+          blurring_image_limit: 3, //number of loops of document_max_attemps before finish session
+          //slow_link_limit: 3, //number of slow_link messages from server before to close session for bad connection
+
+          request_location: true, // ask for the location yes or not. Default value: true
+          mandatory_location: false, // if the location is mandatory or not. Default value: false
+
+          mandatory_acceptance: true, //optional
+          // acceptance_language: "es", //optional
+
+          // //CUSTOMIZATION DATA
+          face_MSG_PLACE_FACE_INSIDE: 'Por favor, coloca tu rostro dentro de la imagen',
+          face_MSG_STAY_STILL_AND_OPEN_EYES: 'Mantente quieto y abre los ojos',
+          face_MSG_STAY_STILL: 'Por favor, mantente quieto',
+          face_MSG_NO_EYES_DETECTED: 'Ojos no detectados, intentalo de nuevo',
+          face_MSG_COME_CLOSER: 'Acércate más a la cámara',
+          face_MSG_GO_BACK: 'Aléjate de la cámara',
+          face_MSG_BLURRED_IMAGE: 'Imagen borrosa, intentalo de nuevo',
+          face_MSG_ACCEPTED: 'El registro se ha realizado con éxito',
+          face_MSG_ABORTED: 'El registro ha sido abortado. Cuando tengas todo listo, intentalo de nuevo.',
+          face_MSG_PLACE_HEAD_CENTERED:
+            'Por favor, coloca tu cabeza en el centro de la imagen y mira de frente a la cámara',
+          face_MSG_TAKE_OFF_GLASSES: 'Si estás usando lentes, por favor quítalas e intenta la captura de la foto',
+          face_MSG_BLINK_EYES: 'Por favor, pestañea lentamente',
+          face_MSG_STARTING_PROCESS: 'Estamos iniciando el proceso, por favor, espera un momento',
+          //   face_MSG_RESTARTING_PROCESS:"CUSTOM RE-STARTING THE PROCESS\n\nIN %n",
+
+          face_MSG_LOOK_LEFT: 'Por favor, mueve la cabeza hacia la izquierda',
+          face_MSG_LOOK_RIGHT: 'Por favor, mueve la cabeza hacia la derecha',
+          face_MSG_LOOK_UP: 'Por favor, mueve la cabeza hacia arriba',
+          face_MSG_LOOK_DOWN: 'Por favor, mueve la cabeza hacia abajo',
+          face_MSG_LOOK_CENTER: 'Por favor, mira al centro de la pantalla',
+          face_MSG_GESTURE_NEUTRAL: 'Mantén un gesto neutral o serio',
+          // face_MSG_GESTURE_SUPERNEUTRAL: "PLEASE, TRY TO BE SUPER NEUTRAL CUSTOM",
+          face_MSG_GESTURE_SMILE: 'Por favor, sonríe a la cámara',
+          face_MSG_GESTURE_ANGRY: 'Por favor, pon gesto de enojo',
+          face_MSG_GESTURE_SURPRISED: 'Por favor, pon gesto de sorpresa',
+
+          document_MSG_PLACE_DOC_INSIDE: 'Centra tu documento en el recuadro de la cámara',
+          document_MSG_DOC_OK: 'Manténgase quieto',
+          document_MSG_BLURRED_IMAGE: 'Imagen borrosa, inténtelo de nuevo',
+          document_MSG_ACCEPTED: 'La captura de imagen ha sido exitosa',
+          document_MSG_ABORTED:
+            'El proceso de captura de imagen ha sido abortado. Cuando tengas todo listo, intentalo de nuevo.',
+
+          //acceptance terms callback
+          fn_acceptance_terms_cb(options) {
+            $('#accept').off('click')
+            $('#accept').show()
+
+            alert('fn_acceptance_terms_cb: \n' + atob(options.acceptanceText))
+
+            $('#accept').click(function () {
+              options.next()
+              $(this).hide()
+            })
+            // crear loader
+          },
+
+          face_disableFaceLivenessCheck: false,
+          face_numberSecWaitingStringProcess: 2,
+
+          sleep_before_face: 200, //optional, sleep time before start face capture in miliseconds
+          sleep_before_front: 200, //sleep time before start ID front capture in miliseconds
+          sleep_before_back: 200, //sleep time before start ID back capture in miliseconds
+
+          //Callbacks
+          fn_general_error: function (state, state_desc, code, code_desc) {
+            // desactivar loader y cambiar el alert
+            alert('[Error] ' + state + ' ' + state_desc + ' ' + code + ' ' + code_desc)
+          },
+          fn_general_warning: function (state, state_desc, code, code_desc) {
+            //Toggle comment to trace eKYC Video
+            //alert("[Warning] " + state + " " + state_desc + " " +  code + " " + code_desc);
+          },
+          fn_general_info: function (state, state_desc, msg) {
+            //Toggle comment to trace eKYC Video
+            //alert("[Info] " + state + " " + state_desc + " " +  msg);
+          },
+
+          //begin session functions
+          fn_before_begin_session: function (state, state_desc) {},
+          fn_success_begin_session: function (state, state_desc, results) {
+            console.log('success begin session: ', results)
+          },
+          fn_error_begin_session: function (state, state_desc, code, code_desc) {},
+          fn_success_validation: function (state, state_desc, results) {
+            console.log('success validation: ', results)
+            // alert('[Info] ' + state + ' ' + state_desc)
+            const message =
+              results.resultCode === 2
+                ? 'Sesión finalizada con éxito. Ya puede cerrar esta ventana'
+                : 'Error en la autenticación. Por favor, comunícate con el soporte técnico'
+            const params = new URLSearchParams(window.location.search)
+            const docNum = params.get('docNum')
+            const password = params.get('password')
+            const personalNumber = results?.validationInfo?.ocr_m2.personal_number ?? ''
+            // console.log('0', results)
+            // console.log('1', results.validationInfo)
+            // console.log('2', results.validationInfo.ocr_m2)
+            // console.log('3', results.validationInfo.ocr_m2.document_number)
+            // console.log('4', results.validationInfo.ocr_m2.personal_number)
+            // console.log('personal number ------------->',personalNumber)
+            const data = {
+              docNum: docNum,
+              password: password,
+              code: results.resultCode,
+              personalNumber: personalNumber
+            }
+
+            // window.parent.postMessage(JSON.stringify(data), '*')
+            window.parent.postMessage({ type: 'redirect', message: JSON.stringify(data) }, '*')
+
+            window.close()
+          },
+          //selfie block
+          fn_before_face_capture: function (state, state_desc) {},
+          fn_before_face_capture_cb: function (options) {
+            $('#ready1').prop('disabled', false)
+            $('#ready1').click(function () {
+              options.next()
+              $(this).hide()
+              $('#repeat1').show()
+              $('#next1').show()
+              $('#repeat1').prop('disabled', true)
+              $('#next1').prop('disabled', true)
+            })
+          },
+          fn_success_face_capture: function (state, state_desc, results) {
+            $('#repeat1').prop('disabled', false)
+            $('#next1').prop('disabled', false)
+          },
+          fn_error_face_capture: function (state, state_desc, code, code_desc) {},
+
+          //front document block
+          fn_before_front_document_capture: function (state, state_desc) {},
+          fn_before_front_document_capture_cb: function (options) {
+            $('#ready2').prop('disabled', false)
+            $('#manualPicture').hide()
+            $('#ready2').click(function () {
+              options.next()
+              $(this).hide()
+              $('#manualPicture').show()
+            })
+          },
+          fn_success_front_document_capture: function (state, state_desc, results) {
+            $('#manualPicture').hide()
+          },
+          fn_error_front_document_capture: function (state, state_desc, code, code_desc) {
+            $('#manualPicture').hide()
+          },
+
+          //back document block
+          fn_before_back_document_capture: function (state, state_desc) {},
+          fn_before_back_document_capture_cb: function (options) {
+            $('#ready3').show()
+            $('#manualPicture').hide()
+            $('#ready3').click(function () {
+              options.next()
+              $(this).hide()
+              $('#manualPicture').show()
+            })
+          },
+          fn_success_back_document_capture: function (state, state_desc, results) {
+            console.log('success back document capture: ', results)
+            $('#manualPicture').hide()
+          },
+          fn_error_back_document_capture: function (state, state_desc, code, code_desc) {
+            $('#manualPicture').hide()
+          },
+
+          //
+          // fn_repeat_picture
+          //
+          // function it is called by SDK after each photo has been taken
+          // the purpose of this function is user can decide if want to try to take a better picture than current
+          // If you don't want this feature you has to delete the function
+          //
+          // params:
+          // state : state of SDK
+          // state_desc : description of state of SDK
+          // result: captured image
+          //
+          // return:
+          // true: If user want to repeat the picture
+          // false: If user doesn't want to repeat the picture
+          //
+
+          fn_repeat_picture(state, state_desc, results) {
+            /*
+                        //Sample Javascritp Code to show the image taken in the HTML Canvas with id="pictureTaken"
+                        var photo = document.getElementById("pictureTaken");
+                        photo.width = imageResult.width;
+                        photo.height = imageResult.height;
+                        context = photo.getContext('2d');
+                        context.clearRect(0, 0, photo.width, photo.height);
+                        context.putImageData(results, 0, 0);
+                        */
+            return confirm('¿Quieres intentar sacar una mejor imagen?')
+          },
+
+          //
+          // fn_repeat_picture_cb
+          //
+          // function it is called by SDK after each photo has been taken
+          // the purpose of this function is user can decide if want to try to take a better picture than current
+          // If you don't want this feature you has to delete the function
+          //
+          // params:
+          // state : state of SDK
+          // state_desc : description of state of SDK
+          // result: captured image
+          //
+          // return:
+          // true: If user want to repeat the picture
+          // false: If user doesn't want to repeat the picture
+          //
+
+          fn_repeat_picture_cb(options) {
+            /*
+                        //Sample Javascritp Code to show the image taken in the HTML Canvas with id="pictureTaken"
+                        alert("state: " + options.state + " state_desc: " + options.state_desc);
+                        var photo = document.getElementById("pictureTaken");
+                        photo.width = options.results.width;
+                        photo.height = options.results.height;
+                        context = photo.getContext('2d');
+                        context.clearRect(0, 0, photo.width, photo.height);
+                        context.putImageData(results, 0, 0);
+                        */
+
+            //alert("Repeat: state: " + options.state + " state_desc: " + options.state_desc);
+
+            $('#next1').off('click')
+            $('#repeat1').off('click')
+            $('#ready1').off('click')
+            $('#next2').off('click')
+            $('#repeat2').off('click')
+            $('#ready2').off('click')
+            $('#repeat3').off('click')
+            $('#ready3').off('click')
+            $('#next3').off('click')
+
+            if (options.state == '500') {
+              $('#repeat1').show()
+              $('#next1').show()
+              $('#repeat1').click(function () {
+                options.repeat()
+                $(this).hide()
+                $('#next1').hide()
+                $('#ready1').show()
+                $('#ready1').prop('disabled', false)
+              })
+              $('#next1').click(function () {
+                options.next()
+                $(this).hide()
+                $('#repeat1').hide()
+                $('#ready2').show()
+                $('#ready2').prop('disabled', true)
+              })
+            } else if (options.state == '501') {
+              $('#repeat2').show()
+              $('#next2').show()
+              $('#manualPicture').hide()
+              $('#repeat2').click(function () {
+                options.repeat()
+                $(this).hide()
+                $('#next2').hide()
+                $('#ready2').show()
+                $('#ready2').prop('disabled', false)
+              })
+              $('#next2').click(function () {
+                options.next()
+                $(this).hide()
+                $('#repeat2').hide()
+                $('#repeat2').prop('disabled', true)
+              })
+            } else if (options.state == '502') {
+              $('#repeat3').show()
+              $('#next3').show()
+              $('#manualPicture').hide()
+              $('#repeat3').click(function () {
+                options.repeat()
+                $(this).hide()
+                $('#next3').hide()
+                $('#ready3').show()
+                $('#ready3').prop('disabled', false)
+              })
+              $('#next3').click(function () {
+                // Validando la sesión
+                // window.parent.postMessage({ type: 'disbledButton', message: true}, '*')
+                options.next()
+                $(this).hide()
+                $('#repeat3').hide()
+                $('#repeat3').prop('disabled', true)
+              })
+            }
+            /*
+                        if(confirm("Would you like to repeat picture?"))
+                        {
+                            options.repeat();
+                        }
+                        else
+                        {
+                            options.next();
+                        }
+                        */
+          },
+
+          //
+          // fn_blurring_image_detected
+          //
+          // function it is called by SDK after OCR Software has tried to take a good picture document_max_attemps times
+          // the purpose of this function is to give a piece of advice to the user. After this advice the user can try again
+          // If you don't want this feature you has to delete document_max_attemps blurring_image_limit params and fn_blurring_image_finishfunction and this function
+          //
+          // params:
+          // state : state of SDK
+          // state_desc : description of state of SDK
+          // attemps: number of attemps tried
+          //
+
+          fn_blurring_image_detected(state, state_desc, attempts) {
+            alert(
+              'La captura de la imagen no ha sido muy buena, puedes buscar un lugar con mejor luz? Inténtalo de nuevo.'
+            )
+          },
+
+          fn_blurring_image_detected_cb(options) {
+            $('#next4').off('click')
+            $('#next4').show()
+            $('#next4').click(function () {
+              options.next()
+              $(this).hide()
+            })
+          },
+
+          //
+          // fn_blurring_image_finish
+          //
+          // function it is called by SDK after SDK has called function fn_blurring_image_detected blurring_image_limit times
+          // the purpose of this function is to give a piece of advice to the user saying that perhaps the device camara is not good to take photos.
+          // After this advice the user can't try again and session is finished.
+          // If you don't want this feature you has to delete document_max_attemps blurring_image_limit params and fn_blurring_image_detected and this function
+          //
+          // params:
+          // state : state of SDK
+          // state_desc : description of state of SDK
+          // attemps: number of attemps tried
+          //
+
+          fn_blurring_image_finish(state, state_desc, attempts) {
+            alert(
+              'No fue posible tomar una imagen buena, la sesión será terminada. Por favor, busca un lugar con mejor luz o inténtalo con otro dispositivo con mejor camara.'
+            )
+          },
+
+          //
+          // fn_slow_link_detected
+          //
+          // function it is called by SDK after facing problems with the device or network
+          // the purpose of this function is to give a piece of advice to the user.
+          // If you don't want this feature you has to delete slow_link_limit param fn_slow_link_detected function and this function
+          //
+          // params:
+          // state : state of SDK
+          // state_desc : description of state of SDK
+          // count: number of slow link detected
+          //
+
+          fn_slow_link_detected(state, state_desc, count) {
+            alert('El sistema está detectando problemas de grabación de video...')
+          },
+
+          //
+          // fn_slow_link_finish
+          //
+          // function it is called by SDK after facing slow_link_limit problems with the device or network
+          // the purpose of this function is to give a piece of advice to the user.
+          // After this advice the user can't try again and session is finished.
+          // If you don't want this feature you has to delete slow_link_limit param fn_slow_link_finish function and this function
+          //
+          // params:
+          // state : state of SDK
+          // state_desc : description of state of SDK
+          // count: number of slow link detected
+          //
+
+          fn_slow_link_finish(state, state_desc, count) {
+            alert(
+              'El sistema está detectando muchos problemas de grabación de video. Por lo tanto, no es posible grabar un video bueno y la sesión se terminará. Por fvor, interntalo con otro dispositivo o con una red más estable.'
+            )
+          },
+
+          //
+          // fn_reset_success
+          //
+          // Called by SDK after reset is properly executed
+          fn_reset_success() {
+            //alert("Reset!!");
+            //Implementing page buttons reset:
+
+            $('#next1').hide()
+            $('#repeat1').hide()
+            // $('#ready1').hide()
+            $('#next2').hide()
+            $('#repeat2').hide()
+            $('#ready2').hide()
+            $('#repeat3').hide()
+            $('#ready3').hide()
+            $('#next3').hide()
+            $('#next4').hide()
+
+            $('#next1').off('click')
+            $('#repeat1').off('click')
+            $('#ready1').off('click')
+            $('#next2').off('click')
+            $('#repeat2').off('click')
+            $('#ready2').off('click')
+            $('#repeat3').off('click')
+            $('#ready3').off('click')
+            $('#next3').off('click')
+
+            //cleaning canvas 1
+            var canvas1 = document.getElementById('photo1')
+            var context1 = canvas1.getContext('2d')
+            context1.clearRect(0, 0, canvas1.width, canvas1.height)
+
+            //cleaning canvas 2
+            var canvas2 = document.getElementById('photo2')
+            var context2 = canvas2.getContext('2d')
+            context2.clearRect(0, 0, canvas2.width, canvas2.height)
+
+            //cleaning canvas 3
+            var canvas3 = document.getElementById('photo3')
+            var context3 = canvas3.getContext('2d')
+            context3.clearRect(0, 0, canvas3.width, canvas3.height)
+          },
+
+          //
+          // fn_reset_error
+          //
+          // Called by SDK if reset thrown an error
+          fn_reset_error: function (state, state_desc, code, code_desc) {
+            alert('[Error] ' + state + ' ' + state_desc + ' ' + code + ' ' + code_desc)
+          }
+        })
+      }
+      $('#manualPicture').click(function () {
+        if (customer.manualPicture()) {
+          $(this).hide()
+        }
+      })
+    </script>
+  </body>
+</html>
