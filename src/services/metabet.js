@@ -10,7 +10,8 @@ export async function startBiometricSession(requestData) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(requestData)
+    body: JSON.stringify(requestData),
+    mode: 'cors'
   })
   const data = await res.json()
   console.log(data)
@@ -25,7 +26,8 @@ export async function getSessionResults(sessionId) {
     },
     body: JSON.stringify({
       sessionId
-    })
+    }),
+    mode: 'cors'
   })
   const data = await res.json()
   console.log(data)
