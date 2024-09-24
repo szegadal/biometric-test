@@ -85,6 +85,7 @@ export function Liveness() {
           latitude: geoLocation.latitude,
           longitude: geoLocation.longitude
         }
+        console.log(newSessionData)
         const data = await startBiometricSession(newSessionData)
         setSessionID(data.SessionId)
       } catch (error) {
