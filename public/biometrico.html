@@ -191,7 +191,7 @@
           template: { userId, provider: 'lleida' },
           ocrSDK_url: 'js/LleidaSDK.js',
           model_path: 'js/models',
-          // debug: true,
+          debug: true,
           video_html_id: 'videoOutput', //mandatory, video tag id
           face_image_html_id: 'photo1', //mandatory, html selfie canvas id
           front_document_html_id: 'photo2', //mandatory, html ID front canvas id
@@ -297,9 +297,9 @@
               results.resultCode === 2
                 ? 'Sesión finalizada con éxito. Ya puede cerrar esta ventana'
                 : 'Error en la autenticación. Por favor, comunícate con el soporte técnico'
-            const params = new URLSearchParams(window.location.search)
-            const docNum = params.get('docNum')
-            const password = params.get('password')
+            // const params = new URLSearchParams(window.location.search)
+            // const docNum = params.get('docNum')
+            // const password = params.get('password')
             const personalNumber = results?.validationInfo?.ocr_m2.personal_number ?? ''
             // console.log('0', results)
             // console.log('1', results.validationInfo)
@@ -308,8 +308,8 @@
             // console.log('4', results.validationInfo.ocr_m2.personal_number)
             // console.log('personal number ------------->',personalNumber)
             const data = {
-              docNum: docNum,
-              password: password,
+              // docNum: docNum,
+              // password: password,
               code: results.resultCode,
               personalNumber: personalNumber
             }

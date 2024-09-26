@@ -145,7 +145,7 @@
 
     <script type="text/javascript" src="./js/vendors/adapter.js"></script>
     <script type="text/javascript" src="./js/vendors/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/lleidaSDK.js"></script>
+    <script type="text/javascript" src="./js/LleidaSDK.js"></script>
     <script type="text/javascript" src="./js/janus.js"></script>
     <script type="text/javascript" src="./js/mediaserver.js"></script>
     <script type="text/javascript" src="./js/riucore.js"></script>
@@ -186,10 +186,10 @@
         customer.init({
           //GENERAL DATA
           // customer_url: 'https://system.cpelsac.com/api/v1/lleida/session',
-          customer_url: 'https://401n8gz0-3002.brs.devtunnels.ms/api/v1/lleida/session',
+          customer_url: 'https://401n8gz0-3002.brs.devtunnels.ms/api/v1/users/biometric-session',
           // redirect_url: "https://<<customer_url>>/custom_form.html?param1=true",
           template: { userId, provider: 'lleida' },
-          ocrSDK_url: 'js/lleidaSDK.js',
+          ocrSDK_url: 'js/LleidaSDK.js',
           model_path: 'js/models',
           // debug: true,
           video_html_id: 'videoOutput', //mandatory, video tag id
